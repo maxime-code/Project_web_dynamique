@@ -36,7 +36,7 @@ if (isset($_POST['reset'])){
             }
  
             if($valid){
-                $statement = $db->query("SELECT nom, prenom, email, mdp FROM medecin WHERE email = :email";
+                $statement = $db->query("SELECT nom, prenom, email, mdp FROM medecin WHERE email = :email");
                 $statement = bindParam(':email', $_POST['email']);
                 $statement->execute();
                 $result = $statement->fetch();
