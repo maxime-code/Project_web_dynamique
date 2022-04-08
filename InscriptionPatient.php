@@ -44,8 +44,8 @@ header("Location: authentification.php);
 <h1>S'inscrire</h1>
 <input type="text" class="form-control" name="nom" placeholder="Nom" required />
 <input type="text" class="form-control" name="prenom" placeholder="Prénom" required />
-<input type="text" class="form-control" name="email" placeholder="Email" required />
-<input type="text" class="form-control" name="email2" placeholder="Confirmation de votre email" required />
+<input type="email" class="form-control" name="email" placeholder="Email" required />
+<input type="email" class="form-control" name="email2" placeholder="Confirmation de votre email" required />
 <input type="password" class="form-control" name="password" placeholder="Mot de passe" required />
 <input type="submit" name="submit" value="S'inscrire" class="btn btn-secondary" />
 <p> Si vous êtes déja inscrit <a class="nav-link" href="authentification.php"> Vous pouvez vous connectez à cet endroit </a></p>
