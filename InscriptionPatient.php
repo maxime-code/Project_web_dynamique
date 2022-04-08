@@ -34,16 +34,14 @@ $mdp = $db->prepare("INSERT INTO patient(mdp) VALUES (:mdp)");
 $mdp->bindParam(':mdp', $_REQUEST['password']);
 $mdp->execute();
 
-$host  = $_SERVER['HTTP_HOST'];
-$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-header("Location: http://$host$uri/authentification.php");
+header("Location: authentification.php);
 }
 }else{
   echo "<h3> Erreur dans les adresses mail" </h3>
 }else{
 ?>
-<form class="box" action="" method="post">
-<h1 class="box-title">S'inscrire</h1>
+<form action="" method="post">
+<h1>S'inscrire</h1>
 <input type="text" class="form-control" name="nom" placeholder="Nom" required />
 <input type="text" class="form-control" name="prenom" placeholder="Prénom" required />
 <input type="text" class="form-control" name="email" placeholder="Email" required />
