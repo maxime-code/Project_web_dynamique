@@ -11,27 +11,27 @@
   
 <?php
 include 'database.php';
-if (isset($_REQUEST['nom'],$_REQUEST['Prenom'], $_REQUEST['email'], $_REQUEST['email2'] $_REQUEST['password'])){
-if($_REQUEST['email'] == $_REQUEST['email2']){
+if (isset($_POST['nom'],$_POST['Prenom'], $_POST['email'], $_POST['email2'] $_POST['password'])){
+if($_POST['email'] == $_POST['email2']){
   
  // récupérer le nom et l'insérer dans la base de données
 $lastname = $db->prepare("INSERT INTO patient(nom) VALUES (:nom)");
-$lastname->bindParam(':nom', $_REQUEST['nom']);
+$lastname->bindParam(':nom', $_POST['nom']);
 $lastname->execute();
 
  // récupérer le prénom et l'insérer dans la base de données
 $firstname = $db->prepare("INSERT INTO patient(prenom) VALUES (:prenom)");
-$firstname->bindParam(':prenom', $_REQUEST['prenom']);
+$firstname->bindParam(':prenom', $_POST['prenom']);
 $firstname->execute();
  
 // récupérer l'email et l'insérer dans la base de données
 $email = $db->prepare("INSERT INTO patient(email) VALUES (:email)");
-$email->bindParam(':email', $_REQUEST['email']);
+$email->bindParam(':email', $_POST['email']);
 $email->execute();
   
 // récupérer le mot de passe et l'insérer dans la base de données
 $mdp = $db->prepare("INSERT INTO patient(mdp) VALUES (:mdp)");
-$mdp->bindParam(':mdp', $_REQUEST['password']);
+$mdp->bindParam(':mdp', $_POST['password']);
 $mdp->execute();
 
 header("Location: authentification.php);
