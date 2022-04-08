@@ -10,7 +10,7 @@
   include 'database.php';
   session_start();
   if(isset($_POST['email'])){
-    $request = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
+    $statement = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
     $db = dbConnect();
     $statement->bindParam(':email', $email);
     $statement->bindParam(':mdp',$mdp);
