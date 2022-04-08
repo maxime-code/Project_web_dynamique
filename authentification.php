@@ -9,8 +9,8 @@
 <?php
   include 'database.php';
   session_start();
-  if(isset($_REQUEST['email'])){
-    $request = 'SELECT email, mdp FROM patient WHERE email=:email and mdp= :mdp';
+  if(isset($_POST['email'])){
+    $request = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
     $db = dbConnect();
     $statement->bindParam(':email', $email);
     $statement->bindParam(':mdp',$mdp);
