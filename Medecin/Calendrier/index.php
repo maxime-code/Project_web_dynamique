@@ -29,13 +29,13 @@
   <table class="w-100 h-50">
     <?php for ($i =0; $i < $mois->getSemaine(); $i++); ?>
     <tr>
-<!-- 	<td class="p-10 border border-secondary w-14.29 h-20"> Lundi <br> <?php echo $jour->format(format:'d'); ?> </td>
-      <td class="p-10 border border-secondary w-14.29 h-20"> Mardi <br> <?php echo $jour->format(format:'d'); ?> </td>
-      <td class="p-10 border border-secondary w-14.29 h-20"> Mercredi <br> <?php echo $jour->format(format:'d'); ?> </td>
-      <td class="p-10 border border-secondary w-14.29 h-20"> Jeudi <br> <?php echo $jour->format(format:'d'); ?> </td>
-      <td class="p-10 border border-secondary w-14.29 h-20"> Vendredi <br> <?php echo $jour->format(format:'d'); ?> </td>
-      <td class="p-10 border border-secondary w-14.29 h-20"> Samedi <br> <?php echo $jour->format(format:'d'); ?> </td>
-      <td class="p-10 border border-secondary w-14.29 h-20"> Dimanche <br> <?php echo $jour->format(format:'d'); ?> </td> -->
+// 	<td class="p-10 border border-secondary w-14.29 h-20"> Lundi <br> <?php echo $jour->format(format:'d'); ?> </td>
+//      <td class="p-10 border border-secondary w-14.29 h-20"> Mardi <br> <?php echo $jour->format(format:'d'); ?> </td>
+//      <td class="p-10 border border-secondary w-14.29 h-20"> Mercredi <br> <?php echo $jour->format(format:'d'); ?> </td>
+//      <td class="p-10 border border-secondary w-14.29 h-20"> Jeudi <br> <?php echo $jour->format(format:'d'); ?> </td>
+//      <td class="p-10 border border-secondary w-14.29 h-20"> Vendredi <br> <?php echo $jour->format(format:'d'); ?> </td>
+//      <td class="p-10 border border-secondary w-14.29 h-20"> Samedi <br> <?php echo $jour->format(format:'d'); ?> </td>
+//      <td class="p-10 border border-secondary w-14.29 h-20"> Dimanche <br> <?php echo $jour->format(format:'d'); ?> </td>
     	<?php foreach($mois->days as $k => $day) : ?>
 			<td>
 				<?php if($i === 0) : ?>
