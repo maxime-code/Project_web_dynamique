@@ -3,13 +3,13 @@
 class Mois
 {
   
-  private $month = ['Janvier', 'Février', 'Mars', 'Avril', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-  private $mois;
-  private $an;
+  public $month = ['Janvier', 'Février', 'Mars', 'Avril', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+  public $mois;
+  public $an;
     public function __construct(?int $mois=null,?int $an=null)
     {
     // On peut rajouter des tests d'erreur mais flemme, j'en fais pas
-    if($mois === null){
+    if($mois === null[[ $mois < 1 || $mois > 12){
       $mois = intval(date(format:'m');
     }
                      
@@ -17,7 +17,6 @@ class Mois
     if($an === null){
       $an = intval(date(format:'Y');
     }     
-    $mois = $mois/12;
     $this->mois = $mois;
     $this->an = $an;
   }
@@ -41,8 +40,26 @@ class Mois
     }
     return $week;
   }
-}                   
- 
+                   
+  public function ProchainMois(): Mois{
+    $mois = $this->mois +1;
+    $an = $this->an;
+    if($mois >12){
+      $mois = 1;
+      $an +=1;
+    }
+    return new Mois($mois, $an);
+    
+    public function DernierMois(): Mois{
+    $mois = $this->mois -1;
+    $an = $this->an;
+    if($mois < 12){
+      $mois = 12;
+      $an -=1;
+    }
+    return new Mois($mois, $an);
+}                  
+
                   
   
                    
