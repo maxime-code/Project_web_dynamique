@@ -10,7 +10,25 @@
     <a href="/index.php" class="navbar-grand"> Mon calendrier </a>
   </nav>
   
-  <h1> 
+  <?php
+    require '/Date/Mois.php';
+    $mois = new Mois(mois: $_GET['mois'] ?? null . $_GET['an'] ?? null);
+  ?>
+  
+  <h1> <?php echo $mois->StringMois(); ?> </h1>
+  <?php echo $mois->getSemaine(); ?>
+  <table class="w-100 p-3" >
+    <?php for ($i =0; $i < $mois->getSemaine(); $i++); ?>
+    <tr>
+      <td> Lundi </td>
+      <td> Mardi </td>
+      <td> Mercredi </td>
+      <td> Jeudi </td>
+      <td> Vendredi </td>
+      <td> Samedi </td>
+      <td> Dimanche </td>
+    </tr>
+  </table>
     
 <body>
 </html>
