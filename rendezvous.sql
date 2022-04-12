@@ -15,3 +15,13 @@ CREATE TABLE Medecin (
   specialite VARCHAR(50)
   PRIMARY KEY(email);
  );
+
+CREATE TABLE RDV (
+  id INT AUTO_INCREMENT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  debut DATETIME NOT NULL,
+  fin DATETIME NOT NULL,
+  PRYMARY KEY(id);
+);
+
