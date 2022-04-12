@@ -12,6 +12,12 @@ class Evenement {
     $days = [];
     foreach($evenement as $event) {
       $date = explode(delimiter' ', $event['debut'])[0];
-      if(!isset($days[
+      if(!isset($days[$date])){
+        $days[$date] = [$evenement];
+      } else {
+        $days[$date][] = $evenement;
+      }
+    }
+    return $days;
   }
 ?>
