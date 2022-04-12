@@ -12,8 +12,9 @@
   
   <?php
     require '/Date/Mois.php';
+	$debut = $mois->getPremierJour();
     $mois = new Mois(mois: $_GET['mois'] ?? null . $_GET['an'] ?? null);
-		$jour = $mois->getPremierJour()->modify(modify:'last monday');
+		$debut = $debut->format(format:'N') === '1' ? $debut : $mois->getPremierJour()->modify(modify:'last monday');
   ?>
   
 	<div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
