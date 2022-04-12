@@ -13,7 +13,9 @@
   <?php
     require '/Date/Evenements.php';
     require '/Date/Mois.php';
-	$evenement = new Evenements();
+	require '../../../Complémentaires/database.php';
+	$db = dbConnect();
+	$evenement = new Evenements($db);
     $mois = new Mois(mois: $_GET['mois'] ?? null . $_GET['an'] ?? null);
 	$debut = $mois->getPremierJour();
 		$debut = $debut->format(format:'N') === '1' ? $debut : $mois->getPremierJour()->modify(modify:'last monday');
