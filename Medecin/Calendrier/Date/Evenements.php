@@ -1,9 +1,11 @@
 <?php 
-include 'dabatase.php';
 class Evenement {
+  private $db;
+  public function __construct($db){
+    $this->db = $db
+  }
   public function getEvenementsEntre($debut, $fin) : array{
-    db = dbConnect();
-    $statement = $db->quety("SELECT * FROM rdv where debut BETWEEN '{$debut->format(format:'Y--m-d 00:00:00')} AND '{$fin->format(format:'Y-m-d 23:59:59')}");
+    $statement = $this->db->query("SELECT * FROM rdv where debut BETWEEN '{$debut->format(format:'Y--m-d 00:00:00')} AND '{$fin->format(format:'Y-m-d 23:59:59')}");
     $results = $statement->fectAll();
     return $results
     }
@@ -19,5 +21,9 @@ class Evenement {
       }
     }
     return $days;
+  }
+  
+  public function find (int $id) : array {
+    return $this->db->query("SELECT * FROM rdv WHERE id = $id LIMIT 1")->fetch();
   }
 ?>
