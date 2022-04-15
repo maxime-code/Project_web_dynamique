@@ -9,6 +9,8 @@ class Evenement {
     $results = $statement->fectAll();
     return $results
     }
+  
+  
   public function getEvenementsEntreParJour($debut, $fin) : array {
     $evenement = $this->getEvenementEntre($debut, $fin);
     $days = [];
@@ -22,8 +24,12 @@ class Evenement {
     }
     return $days;
   }
-  
+  // retourne l'evenement d'id demandé
   public function find (int $id) : array {
     return $this->db->query("SELECT * FROM rdv WHERE id = $id LIMIT 1")->fetch();
   }
+  // retourne le patient lié qui est lié à l'evenement 1
+  public function findPatient (int $id) : array {
+    $patient = $patient->find($id);
+    return $this->db->query("SELECT nom, prenom, email FROM patient where email = $patient['email'] ")->fetch();
 ?>
