@@ -19,6 +19,7 @@
   }
     
     $event = $event->find($_GET['id']);
+    $patient = $patient->findPatient($_GET['id']);
 ?>
 
 <h1> <?php echo $event['name']; ?> </h1>
@@ -26,7 +27,10 @@
   <li> Date : <?php echo {new DateTime($event['debut'])}->format(format: 'd/m/Y'); ?> </li>
   <li> Heure de démarrage : <?php echo {new DateTime($event['debut'])}->format(format: 'H:i'); ?> </li>
   <li> Heure de fin : <?php echo {new DateTime($event['fin'])}->format(format: 'H:i'); ?> </li>
-  <li> Informations : <br> <?php echo $event['informations']; ?> <li>
+  <li> Nom du patient : <?php echo $patient['nom']; ?> </li>
+  <li> Prénom du patient : <?php echo $patient['prenom']; ?> </li>
+  <li> email du patient : <?php echo $patient['email']; ?> </li>
+  <li> Informations sur le patient : <br> <?php echo $event['informations']; ?> <li>
 </ul>
 </table>
     
