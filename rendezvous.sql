@@ -19,9 +19,10 @@ CREATE TABLE Medecin (
 CREATE TABLE RDV (
   id INT AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,
-  description TEXT NOT NULL,
+  informations TEXT NOT NULL,
   debut DATETIME NOT NULL,
   fin DATETIME NOT NULL,
+  FOREIGN KEY(email);
   PRYMARY KEY(id);
 );
 
