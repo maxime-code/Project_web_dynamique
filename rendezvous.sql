@@ -13,7 +13,7 @@ CREATE TABLE Medecin (
   email VARCHAR(50) NOT NULL,
   codepostal VARCHAR(50) NOT NULL,
   mdp text NOT NULL,
-  specialite VARCHAR(50)
+  specialite VARCHAR(50),
   PRIMARY KEY(email);
  );
 
