@@ -5,7 +5,7 @@
   if(!isset($_SESSION('email'])){
     header("Location : authentification.php");
     exit();
-  }
+ }
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,6 +15,27 @@
   <body>
     <div>
       <h1> Bienvenue <?php echo $_SESSION['email']; ?> ! </h1>
+  
+        <h1> Prendre un Rendez Vous </h1>
+        <input type="text" class="form-control" name="medecin" placeholder="Nom du médecin" />
+        <input type="text" class="form-control" name="specialite" placeholder "Spécialité" />
+        <input type="date" class="form-control" name="date" placeholder="Date" />
+        <input type="text" class="form-control" name="codepostal" placeholder="Code Postal" />
+        <input type="submit" name="submit" value="Rechercher" class="btn btn-secondary" />
+  <?php
+     $db = dbConnect();
+     if(!isset($_POST['medecin'],$_POST['specialite'], $_POST['date'], $_POST['codepostal'])){
+       echo "Veuillez au moins remplir un de ces critères"
+       } else {
+       if(isset($_POST['medecin']) && !isset($_POST['specialite'], $_POST['date'], $_POST['codepostal'])){
+         $statement = $db->prepare("SELECT * FROM medecin WHERE nom=:nom");
+         $statement->bindParam(':nom', $_POST['medecin']);
+         $statement->execute();
+         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+         foreach($result){
+           echo "Monsieur ".$result['nom']
+         
+       
       <a href = "deconnexion.php"> Déconnexion </a>
     </div>
   </body>
