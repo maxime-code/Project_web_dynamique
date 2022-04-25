@@ -19,7 +19,7 @@
     if($statement)
     {
       $_SESSION['email'] = $email;
-      header("Location: PagePatient.php");
+      header("Location: PageMedecin.php");
     }else{
       $erreur = "Vos identifiants sont incorrect.";
     }    
