@@ -12,6 +12,7 @@
   if(isset($_POST['email'])){
     $request = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
     $db = dbConnect();
+    $statement = $db->prepare($request);
     $statement->bindParam(':email', $email);
     $statement->bindParam(':mdp',$mdp);
     $statement->execute;
