@@ -11,6 +11,7 @@ CREATE TABLE Medecin (
   prenom VARCHAR(50) NOT NULL,
   telephone VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL,
+  ville VARCHAR(50) NOT NULL,
   mdp text NOT NULL,
   specialite VARCHAR(50)
   PRIMARY KEY(email);
