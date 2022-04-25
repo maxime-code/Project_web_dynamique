@@ -9,12 +9,12 @@
 <?php
   include 'database.php';
   session_start();
-  if(isset($_POST['email'])){
+  if(isset($_POST['email'],$_POST['mdp'])){
     $request = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
     $db = dbConnect();
     $statement = $db->prepare($request);
-    $statement->bindParam(':email', $email);
-    $statement->bindParam(':mdp',$mdp);
+    $statement->bindParam(':email', $_POST['email']);
+    $statement->bindParam(':mdp',$_POST['mdp']);
     $statement->execute;
     if($statement)
     {
