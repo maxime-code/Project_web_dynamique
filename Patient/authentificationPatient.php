@@ -12,13 +12,13 @@
   if(isset($_POST['email'])){
     $statement = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
     $db = dbConnect();
-    $statement->bindParam(':email', $email);
-    $statement->bindParam(':mdp',$mdp);
+    $statement->bindParam(':email', $_POST['email']);
+    $statement->bindParam(':mdp',$_POST['mdp']);
     $statement->execute;
     $result = $statement->fetchAll(PDO:FETCH_ASSOC);
     if(isset($result))
     {
-      $_SESSION['email'] = $email;
+      $_SESSION['email'] = $_POST['email'];
       header("Location: PagePatient.php");
     }else{
       $erreur = "Vos identifiants sont incorrect.";
