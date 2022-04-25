@@ -12,7 +12,7 @@
 <?php
 include 'database.php';
   db = dbConnect();
-if (isset($_POST['nom'],$_POST['Prenom'], $_POST['email'], $_POST['email2'], $_POST['password'])){
+if (isset($_POST['submit'])){
 if($_POST['email'] == $_POST['email2']){
   
  // récupérer le nom et l'insérer dans la base de données
