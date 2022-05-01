@@ -37,11 +37,15 @@ $db = dbConnect();
  ?>
 
 <form action="" method="post">
-<h1>Se connecter</h1>
+<h1 class="text-center">Se connecter</h1>
+  <div class="form-group">
 <input type="text" class="form-control" name="email" placeholder="Email" required />
-<input type="password" class="form-control" name="password" placeholder="Mot de passe" required />
-<input type="submit" name="submit" value="Se connecter" class="btn btn-secondary" />
-</form>
+  </div>
+  <input type="password" class="form-control" name="password" placeholder="Mot de passe" required />
+<div class="form-group">
+  <input type="submit" name="submit" value="Se connecter" class="btn btn-secondary" />
+  </div>
+  </form>
 <?php if (! empty($erreur)) { ?>
 <p><?php echo $erreur; ?></p>
 <?php } ?>
