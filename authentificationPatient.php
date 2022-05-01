@@ -41,8 +41,10 @@ $db = dbConnect();
   <div class="form-group">
 <input type="text" class="form-control" name="email" placeholder="Email" required />
   </div>
+  <div class="form-group">
   <input type="password" class="form-control" name="password" placeholder="Mot de passe" required />
-<div class="form-group">
+  </div>
+  <div class="form-group">
   <input type="submit" name="submit" value="Se connecter" class="btn btn-secondary" />
   </div>
   </form>
