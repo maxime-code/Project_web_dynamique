@@ -31,7 +31,7 @@ $db = dbConnect();
       $_SESSION['email'] = $result['email'];
       header("Location: patient.php");
     }else{
-        $erreur = "Vos identifiants sont incorrect.";
+        $erreur = "Vos identifiants sont incorrect ou n'existe pas.";
     }  
 }
  ?>
@@ -49,7 +49,9 @@ $db = dbConnect();
   </div>
   </form>
 <?php if (! empty($erreur)) { ?>
-<p><?php echo $erreur; ?></p>
+<div class="alert alert-danger">
+   <strong> <?php echo $erreur; ?> </strong>
+</div>
 <?php } ?>
  <p class="text-center"><a href="inscriptionPatient.php">Inscription</a></p>
   </div>
