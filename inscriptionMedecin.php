@@ -26,7 +26,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])){
     $phone = htmlspecialchars($_POST['phone']);
 
     // récupérer le nom et l'insérer dans la base de données
-    $statement = $db->prepare("INSERT INTO Medecin(nom, prenom, telephone, email, codepostal, mdp, specialite) VALUES (:nom, :prenom, :telephone,:email, :codepostal, :mdp, , :specialite)");
+    $statement = $db->prepare("INSERT INTO Medecin (nom, prenom, telephone, email, codepostal, mdp, specialite) VALUES (:nom, :prenom, :telephone, :email, :codepostal, :mdp, , :specialite)");
     $statement->bindParam(':nom', $nom);
     
       // récupérer le prénom et l'insérer dans la base de données
