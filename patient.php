@@ -65,10 +65,127 @@ session_start();
          $statement->execute();
          $result = $statement->fetchAll(PDO::FETCH_ASSOC);
        }
+
        if(isset($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+
+      if(isset($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':prenom', $_POST['prenom']); 
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal']))
+      {
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom AND specialite=:specialite';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE prenom=:prenom AND specialite=:specialite AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE prenom=:prenom';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE prenom=:prenom';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE specialite=:specialite AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND specialite=:specialite AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE prenom=:prenom AND specialite=:specialite';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(isset($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(isset($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND specialite=:specialite';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(empty($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE prenom=:prenom AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(isset($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND specialite=:specialite AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+      if(isset($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
@@ -80,12 +197,12 @@ session_start();
         }
         echo "</select> <input type='submit' name='valider' class='btn btn-secondary'> </form>";
 
-
         $requestmedecin = 'SELECT * FROM medecin where email=:email';
         $statementmedecin = $db->prepare($requestmedecin);
         $statementmedecin->bindParam(':email',$_POST['medecin']);
         $statementmedecin->execute();
         $resultmedecin = $statementmedecin->fetch(PDO::FETCH_ASSOC);
+
         if (isset($_POST['medecin'])){
         echo '<hr>';
         echo '<table class="table table-hover"><thead>';
@@ -93,7 +210,8 @@ session_start();
         echo '</thead>';  
         echo "<tr>";
         echo "<td> ".$resultmedecin['nom']." ".$resultmedecin['prenom']."</td>";
-        echo "</tr>"; 
+        echo "</tr>";
+        echo "</table> ";
         }
       }
       }        
