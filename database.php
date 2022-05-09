@@ -24,4 +24,61 @@ function dbConnect()
     }
 }
 
+function verifrdv($medecin, $date, $text, $db)
+{
+    $request = 'SELECT * FROM rdv WHERE medecinemail=:medecin AND debut=:debut';
+    $statement = $db->prepare($request);
+    $statement->bindParam(':medecin',$medecin);
+    $statement->bindParam(':debut',$date);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if($statement->rowCount()==1){
+        return "-----";
+    } else {
+        return "<button type='submit' class='btn btn-secondary' name='heure' value='".$date."'>".$text." </button>";
+    }
+}
+
+function ThisMonday()
+{
+    setlocale(LC_TIME, "fr_FR");
+    $CeLundi = strftime("%A - %d/%m/%Y", strtotime("this week"));
+    return $CeLundi;
+}
+
+function ajouterDay($plus)
+{
+    setlocale(LC_TIME, "fr_FR");
+    $Jour = strftime("%A - %d/%m/%Y", strtotime("this week +".$plus." day"));
+    return $Jour;
+}
+
+function sosutractionDay($moins)
+{
+    setlocale(LC_TIME, "fr_FR");
+    $Jour = strftime("%A - %d/%m/%Y", strtotime("this week -".$moins." day"));
+    return $Jour;
+}
+
+function LastMonday($moins)
+{
+    setlocale(LC_TIME, "fr_FR");
+    $DernierJour = strftime("%A - %d/%m/%Y", strtotime("this week -".$moins." week"));
+    return $DernierJour;
+}
+
+function NextMonday($plus)
+{
+    setlocale(LC_TIME, "fr_FR");
+    $ProchainLundi = strftime("%A - %d/%m/%Y", strtotime("this week +".$plus." week"));
+    return $ProchainLundi;
+}
+
+function getTimeStamp($plus)
+{
+    setlocale(LC_TIME, "fr_FR");
+    $heure = strftime("%Y-%m-%d", strtotime("this week +".$plus." day"));
+    return $heure;
+}
 ?>
