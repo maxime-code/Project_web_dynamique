@@ -46,27 +46,119 @@ session_start();
           <input type="text" class="form-control" name="prenom" placeholder="Prénom du médecin" />
           <input type="text" class="form-control" name="specialite" placeholder="Spécialité" />
           <input type="text" class="form-control" name="codepostal" placeholder="Code Postal" />
-          <input type="submit" name="submit" value="Rechercher" class="btn btn-secondary" />
+          <input type="submit" name="submit" value="Rechercher" class="btn btn-primary" />
         </form>
     <div>
-<?php 
-  if (isset($_POST['submit']) && !empty($_POST['submit'])){
-     if(empty($_POST['nom']) && empty($_POST["prenom"]) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
-       echo "Veuillez au moins remplir un de ces critères";
-       } 
-     else {
-       if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
-         $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom AND specialite=:specialite AND codepostal=:codepostal';
-         $statement = $db->prepare($request);
-         $statement->bindParam(':nom', $_POST['nom']);
-         $statement->bindParam(':prenom', $_POST['prenom']);
-         $statement->bindParam(':specialite', $_POST['specialite']);
-         $statement->bindParam(':codepostal', $_POST['codepostal']);
-         $statement->execute();
-         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-       }
+<?php
+  if(isset($_POST['medecin'])){
+    
+    $requestmedecin = 'SELECT * FROM medecin where email=:email'; 
+    $statementmedecin = $db->prepare($requestmedecin);
+    $statementmedecin->bindParam(':email',$_POST['medecin']);
+    $statementmedecin->execute();
+    $resultmedecin = $statementmedecin->fetch(PDO::FETCH_ASSOC);
+    
+    echo '<form action="priseRDV.php" method="post">';
+    echo '<input type="hidden" name="emailmedecin" value="'.$resultmedecin['email'].'">';
+    echo '<hr>';
+    echo '<table class="table"><thead>';
+    echo '<tr><th scope="col"> Medecin </th>';
 
-       if(isset($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
+    for($i=0; $i<=4; $i++)
+    { 
+      echo "<th score='col'> ".ajouterDay($i)." </td> ";
+    }
+
+    echo '</tr>';
+    echo '</thead>';  
+    echo "<tr>"; // 1
+    echo "<td> ".$resultmedecin['nom']." ".$resultmedecin['prenom']."</td>";
+
+    for($i=0; $i<=4 ; $i++)
+    {
+    $timestamp = getTimeStamp($i);
+    $timestamp = $timestamp . " 09:00:00-00";
+    echo "<td> <button type='submit' class='btn btn-secondary' name='heure' value='".$timestamp."'> 9h - 10h </button> </td>";
+    }
+
+    echo "</tr>";
+    echo "<tr>"; // 2
+    echo "<td> Contacts : </td>";
+
+    for($i=0; $i<=4 ; $i++)
+    {
+    $timestamp = getTimeStamp($i);
+    $timestamp = $timestamp . " 10:00:00-00";
+    echo "<td> <button type='submit' class='btn btn-secondary' name='heure' value='".$timestamp."'> 10h - 11h </button> </td>";
+    }
+
+    echo "</tr>";
+    echo "<tr>"; // 3
+    echo "<td> tel : ".$resultmedecin['telephone']."</td>";
+
+    for($i=0; $i<=4 ; $i++)
+    {
+    $timestamp = getTimeStamp($i);
+    $timestamp = $timestamp . " 11:00:00-00";
+    echo "<td> <button type='submit' class='btn btn-secondary' name='heure' value='".$timestamp."'> 11h - 12h </button> </td>";
+    }
+    echo "</tr>";
+    echo "<tr>"; // 4
+    echo "<td> mail : ".$resultmedecin['email']. "</td><td> ------ </td> <td> ------ </td><td> ------ </td><td> ------ </td><td> ------ </td>";
+    echo "</tr>";
+    echo "<tr>"; // 5
+    echo "<td> code postal : ".$resultmedecin['codepostal']."</td> ";
+
+    for($i=0; $i<=4 ; $i++)
+    {
+    $timestamp = getTimeStamp($i);
+    $timestamp = $timestamp . " 14:00:00-00";
+    echo "<td> <button type='submit' class='btn btn-secondary' name='heure' value='".$timestamp."'> 14h - 15h </button> </td>";
+    }
+
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td> spécialité : ".$resultmedecin['specialite']." </td>";
+
+    for($i=0; $i<=4 ; $i++)
+    {
+    $timestamp = getTimeStamp($i);
+    $timestamp = $timestamp . " 15:00:00-00";
+    echo "<td> <button type='submit' class='btn btn-secondary' name='heure' value='".$timestamp."'> 15h - 16h </button> </td>";
+    }
+
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td> <button type ='submit' class=' btn btn-primary'> En Savoir Plus </button>  </td>";
+
+    for($i=0; $i<=4 ; $i++)
+    {
+    $timestamp = getTimeStamp($i);
+    $timestamp = $timestamp . " 16:00:00-00";
+    echo "<td> <button type='submit' class='btn btn-secondary' name='heure' value='".$timestamp."'> 16h - 17h </button> </td>";
+    }
+
+    echo "</tr>";
+    echo "<tr>";
+    echo "</table> ";
+  }
+  if (isset($_POST['submit']) && !empty($_POST['submit'])){
+    if(empty($_POST['nom']) && empty($_POST["prenom"]) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
+      echo "Veuillez au moins remplir un de ces critères";
+    }
+    else {
+      if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['specialite']) && !empty($_POST['codepostal'])){
+        $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom AND specialite=:specialite AND codepostal=:codepostal';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':nom', $_POST['nom']);
+        $statement->bindParam(':prenom', $_POST['prenom']);
+        $statement->bindParam(':specialite', $_POST['specialite']);
+        $statement->bindParam(':codepostal', $_POST['codepostal']);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      }
+
+      if(!empty($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
@@ -74,7 +166,7 @@ session_start();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
 
-      if(isset($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
+      if(!empty($_POST['nom']) && !empty($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
@@ -82,7 +174,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal']))
+
+      if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['specialite']) && empty($_POST['codepostal']))
       {
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom AND specialite=:specialite';
         $statement = $db->prepare($request);
@@ -92,7 +185,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE prenom=:prenom AND specialite=:specialite AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':prenom', $_POST['prenom']);
@@ -101,28 +195,32 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && !empty($_POST['prenom']) && empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE prenom=:prenom';
         $statement = $db->prepare($request);
         $statement->bindParam(':prenom', $_POST['prenom']);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && empty($_POST['prenom']) && !empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE prenom=:prenom';
         $statement = $db->prepare($request);
         $statement->bindParam(':specialite', $_POST['specialite']);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':codepostal', $_POST['codepostal']);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && empty($_POST['prenom']) && !empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE specialite=:specialite AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':specialite', $_POST['specialite']);
@@ -130,7 +228,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND specialite=:specialite AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':prenom', $_POST['prenom']);
@@ -139,7 +238,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal'])){
+
+      if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE prenom=:prenom AND specialite=:specialite';
         $statement = $db->prepare($request);
         $statement->bindParam(':prenom', $_POST['prenom']);
@@ -147,7 +247,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(isset($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(!empty($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
@@ -155,7 +256,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(isset($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && empty($_POST['codepostal'])){
+
+      if(!empty($_POST['nom']) && empty($_POST['prenom']) && !empty($_POST['specialite']) && empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND specialite=:specialite';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
@@ -163,7 +265,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(empty($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(empty($_POST['nom']) && !empty($_POST['prenom']) && empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE prenom=:prenom AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':prenom', $_POST['prenom']);
@@ -171,7 +274,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(isset($_POST['nom']) && empty($_POST['prenom']) && isset($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(!empty($_POST['nom']) && empty($_POST['prenom']) && !empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND specialite=:specialite AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
@@ -180,7 +284,8 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-      if(isset($_POST['nom']) && isset($_POST['prenom']) && empty($_POST['specialite']) && isset($_POST['codepostal'])){
+
+      if(!empty($_POST['nom']) && !empty($_POST['prenom']) && empty($_POST['specialite']) && !empty($_POST['codepostal'])){
         $request = 'SELECT * FROM medecin WHERE nom=:nom AND prenom=:prenom AND codepostal=:codepostal';
         $statement = $db->prepare($request);
         $statement->bindParam(':nom', $_POST['nom']);
@@ -189,32 +294,16 @@ session_start();
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       }
-
-
-         echo "<form action='' method='post'> <select name='medecin' class='form-select'>";
-        foreach($result as $resultat){
-          echo "<option value='".$resultat['mail']."'> Docteur ".$resultat['nom']." ".$resultat['prenom']." situé en ".$resultat['codepostal'].", spécialiste en ".$resultat['specialite']."</option>";
-        }
-        echo "</select> <input type='submit' name='valider' class='btn btn-secondary'> </form>";
-
-        $requestmedecin = 'SELECT * FROM medecin where email=:email';
-        $statementmedecin = $db->prepare($requestmedecin);
-        $statementmedecin->bindParam(':email',$_POST['medecin']);
-        $statementmedecin->execute();
-        $resultmedecin = $statementmedecin->fetch(PDO::FETCH_ASSOC);
-
-        if (isset($_POST['medecin'])){
-        echo '<hr>';
-        echo '<table class="table table-hover"><thead>';
-        echo '<tr><th scope="col">Medecin </th><th scope="col"> Lundi </th><th scope="col"> Mardi </th><th scope="col"> Mercredi </th> <th scope="col"> Jeudi </th> <th scope="col"> Vendredi </th></tr>';
-        echo '</thead>';  
-        echo "<tr>";
-        echo "<td> ".$resultmedecin['nom']." ".$resultmedecin['prenom']."</td>";
-        echo "</tr>";
-        echo "</table> ";
-        }
+      $row = $statement->rowCount();
+      echo "Il y a ".$row." médecins qui correspond à votre recherche";
+      echo "<form action='' method='post'> <select name='medecin' class='form-select'>";
+      foreach($result as $resultat){
+        echo "<option value='".$resultat['email']."'> Docteur ".$resultat['nom']." ".$resultat['prenom']." situé en ".$resultat['codepostal'].", spécialiste en ".$resultat['specialite']."</option>";
       }
-      }        
+      echo "</select> <input type='submit' value='Selectionner' class='btn btn-primary'> </form>";
+
+    }
+  }
 ?>
     </div>
     <p><a href="authentificationPatient.php"> Se déconnecter</a><p>
