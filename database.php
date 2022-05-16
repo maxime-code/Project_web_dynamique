@@ -40,45 +40,25 @@ function verifrdv($medecin, $date, $text, $db)
     }
 }
 
-function ThisMonday()
+function ajouterDay($i,$plus,$moins)
 {
     setlocale(LC_TIME, "fr_FR");
-    $CeLundi = strftime("%A - %d/%m/%Y", strtotime("this week"));
-    return $CeLundi;
-}
-
-function ajouterDay($plus)
-{
-    setlocale(LC_TIME, "fr_FR");
-    $Jour = strftime("%A - %d/%m/%Y", strtotime("this week +".$plus." day"));
+    $Jour = strftime("%A - %d/%m/%Y", strtotime("this week +".$i." day -".$moins." week +".$plus." week"));
     return $Jour;
 }
 
-function sosutractionDay($moins)
+function getTimeStamp($plus,$plusweek,$moinsweek)
 {
     setlocale(LC_TIME, "fr_FR");
-    $Jour = strftime("%A - %d/%m/%Y", strtotime("this week -".$moins." day"));
-    return $Jour;
-}
-
-function LastMonday($moins)
-{
-    setlocale(LC_TIME, "fr_FR");
-    $DernierJour = strftime("%A - %d/%m/%Y", strtotime("this week -".$moins." week"));
-    return $DernierJour;
-}
-
-function NextMonday($plus)
-{
-    setlocale(LC_TIME, "fr_FR");
-    $ProchainLundi = strftime("%A - %d/%m/%Y", strtotime("this week +".$plus." week"));
-    return $ProchainLundi;
-}
-
-function getTimeStamp($plus)
-{
-    setlocale(LC_TIME, "fr_FR");
-    $heure = strftime("%Y-%m-%d", strtotime("this week +".$plus." day"));
+    $heure = strftime("%Y-%m-%d", strtotime("this week -".$moinsweek." week +".$plusweek." week +".$plus." day"));
     return $heure;
 }
+
+function addHour($TimeStamp)
+{
+    setlocale(LC_TIME, "fr_FR");
+    $heure =    date('Y-m-d H:i:s',strtotime('-1 hour',strtotime($TimeStamp)));
+    return $heure;
+}
+
 ?>
