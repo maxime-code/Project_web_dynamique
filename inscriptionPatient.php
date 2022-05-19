@@ -183,7 +183,7 @@
           <hr class="my-4">
           <div class="row">
           <div class="col-sm">
-          <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'inscriptionPatient.php';"> S'inscrire </button>
+          <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'inscriptionPatient.php';"> Se connecter </button>
             </div>
           <div class="col-sm">
            <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'accueil.php';"> Accueil </button>
