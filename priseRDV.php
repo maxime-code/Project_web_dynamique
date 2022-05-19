@@ -80,8 +80,8 @@ $resultmedecin = $statementmedecin->fetch(PDO::FETCH_ASSOC);
   <?php
 
     if(empty($_POST['heure'])){
-    echo "Valeur de + = ".$_SESSION['plus'];
-    echo "<br> Valeur de - = ".$_SESSION['moins'];
+    // echo "Valeur de + = ".$_SESSION['plus'];
+    // echo "<br> Valeur de - = ".$_SESSION['moins'];
     if(isset($_POST['plus']))
     {
       $_SESSION['plus'] = $_SESSION['plus'] + 1;
@@ -94,7 +94,7 @@ $resultmedecin = $statementmedecin->fetch(PDO::FETCH_ASSOC);
     echo '<form action="" method="post">';
     echo '<hr>';
     echo '<table class="table"><thead>';
-    echo '<tr><th scope="col"><button type="submit" class="btn btn-secondary" name="plus"> < </button><button type="submit" class="btn btn-secondary" name="moins"> > </button> </th>';
+    echo '<tr><th scope="col"><button type="submit" class="btn btn-secondary" name="moins"> < </button><button type="submit" class="btn btn-secondary" name="plus"> > </button> </th>';
     echo '</form>';
     echo '<form action="" method="post">';
     for($i=0; $i<=4; $i++)
