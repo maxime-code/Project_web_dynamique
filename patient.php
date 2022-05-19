@@ -14,6 +14,7 @@ session_start();
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
+
 <?php
   $requestpatient = 'SELECT * FROM patient WHERE email=:email';
   $statementpatient = $db->prepare($requestpatient);
@@ -213,9 +214,9 @@ session_start();
       $statementmedecin->execute();
       $resultmedecin = $statementmedecin->fetch(PDO::FETCH_ASSOC);
 
-      echo "<br> Il y a ".$row." médecins qui correspond à votre recherche";
+      echo "Il y a ".$row." médecins qui correspond à votre recherche";
       echo "<form action='priseRDV.php' method='post'>";
-      echo "<select name='medecin' class='form-select'>";
+      echo "<select name='medecin' class='form-select form-select-lg mb-3' aria-label='.form-select-lg example'>";
       foreach($result as $resultat){
         echo "<option value='".$resultat['email']."'> Docteur ".$resultat['nom']." ".$resultat['prenom']." situé en ".$resultat['codepostal'].", spécialiste en ".$resultat['specialite']."</option>";
       }
@@ -226,6 +227,6 @@ session_start();
   }
 ?>
     </div>
-    <p><a href="authentificationPatient.php"> Se déconnecter</a><p>
+    <p><a href="accueil.php"> Se déconnecter</a><p>
 </body>
 </html>
