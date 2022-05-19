@@ -8,12 +8,9 @@ INSERT INTO patient (email, nom, prenom, mdp, telephone) VALUES
 
 INSERT INTO medecin (email, nom, prenom, mdp, telephone, codepostal, specialite) VALUES
 ('ziox.fake@gmail.com', 'Joestar', 'Joseph', 'jojo','0767424852', '44980', 'onde'),
-('alexandre.auguste44@gmail.com', 'Zeppli', 'Ceasar', 'savon', '0782083299', '44700', 'mort');
+('alexandreau@free.fr', 'Zeppeli', 'Will', 'bras','0767424852','44700','onde'),
+('alexandre.auguste44@gmail.com', 'Zeppeli', 'Ceasar', 'savon', '0782083299', '44700', 'mort');
 
-INSERT INTO rdv (debut, fin, libre, medecinemail, patientemail, informations) VALUES
-('2016-06-22 19:10:25-07', '2016-06-22 20:10:25-07', TRUE,'ziox.fake@gmail.com','alexandre.auguste@isen-ouest.yncrea.fr', 'Je suis un medecin'),
-('2016-06-22 12:10:25-07','2016-06-22 13:10:25-07',TRUE, 'alexandre.auguste44@gmail.com','alexandre.auguste44@gmail.com', 'Je suis un bon medecin');
-
-
-
-
+INSERT INTO rdv (heure, medecinemail, patientemail, informations) VALUES
+('2016-06-22 19:10:25-07','ziox.fake@gmail.com','alexandre.auguste@isen-ouest.yncrea.fr', 'Je suis un medecin'),
+('2022-05-19 11:00:00-00','alexandre.auguste44@gmail.com','alexandre.auguste44@gmail.com', 'Test');
