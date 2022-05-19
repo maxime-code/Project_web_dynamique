@@ -8,31 +8,24 @@
   $db = dbConnect();
   session_start();
 
-  if (isset($_POST['submit']) && !empty($_POST['submit']))
+
+  if(isset($_POST['submit']) && !empty($_POST['submit']))
   {
-    if($_POST['email'] == $_POST['email2'])
-    { 
-      // récupérer le nom et l'insérer dans la base de données
-      $statement = $db->prepare("INSERT INTO Medecin(nom, prenom, telephone, email, codepostal, mdp, specialite) VALUES (:nom, :prenom, :telephone,:email, :codepostal, :mdp, , :specialite)");
-      $statement->bindParam(':nom', $_POST['nom']);
-      
-        // récupérer le prénom et l'insérer dans la base de données
-      $statement->bindParam(':prenom', $_POST['prenom']);
-      
-      // récupérer l'email et l'insérer dans la base de données
-      $statement->bindParam(':email', $_POST['email']);
-        
-      // récupérer le mot de passe et l'insérer dans la base de données
-      $statement->bindParam(':mdp', $_POST['password']);
-      $statement->bindParam(':codepostal', $_POST['codepostal']);
-      $statement->bindParam(':specialite', $_POST['specialite']);
-      $statement->bindParam(':telephone', $_POST['phone']);
-      $statement->execute();
-      header("Location: authentificationMedecin.php");
+    $request = 'SELECT email, mdp FROM medecin WHERE email=:email AND mdp=:mdp';
+    $statement = $db->prepare($request);
+    $statement->bindParam(':email', $_POST['email']);
+    $statement->bindParam(':mdp',$_POST['password']);
+    $statement->execute();
+    $result = $statement->fetch();
+    $row = $statement->rowCount();
+    if($row == 1)
+    {
+      $_SESSION['email'] = $result['email'];
+      header("Location: medecin.php");
     }else{
-      $erreur= "Erreur dans les adresses mail";
-    }
-  }
+        $erreur = "Vos identifiants sont incorrect ou n'existent pas.";
+    }  
+}
  ?>
 
 <!doctype html>
@@ -114,10 +107,6 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-
-      small {
-        text-align: center;
-      }
     </style>
 
     
@@ -128,87 +117,50 @@
     
 <main>
 
- <div class="b-example-divider"></div>
+  <div class="b-example-divider"></div>
 
-  <div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div class="col-10 col-sm-8 col-lg-6"><form class="p-4 p-md-5 border rounded-3 bg-light" action="" method="post">
-        <h2 class="text-center"> Inscription Medecin </h2>
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        
+      <form class="p-4 p-md-5 border rounded-3 bg-light" action="" method="post">
+        <h1 class="text-center"> Authentification Medecin </h1>
         <br>
-          <!-- <div class="form-floating mb-3">
+          <?php if (! empty($erreur)) { ?>
+            <div class="alert alert-danger">
+              <strong> <?php echo $erreur; ?> </strong>
+            </div>
+          <?php } ?>
+          <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
             <label for="floatingInput">Adresse mail</label>
           </div>
           <div class="form-floating mb-3">
             <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
             <label for="floatingPassword">Mot de passe</label>
-          </div> -->
-          <?php if (!empty($erreur)) { ?>
-            <div class="alert alert-danger">
-              <strong> <?php echo $erreur; ?> </strong>
-            </div>
-          <?php } ?>
-          <div class="row">
-          <div class="col-sm">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="nom" required>
-            <label for="floatingInput"> Nom</label>
-          </div>
-            </div>
-          <div class="col-sm">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="prenom" required>
-            <label for="floatingInput"> Prénom </label>
-          </div>
-        </div>
-        </div>
-
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" name="email" required>
-            <label for="floatingInput"> Adresse mail </label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" name="email2" required>
-            <label for="floatingInput"> Confirmation mail </label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingInput" name="password" required>
-            <label for="floatingInput"> Mot de passe </label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="specialite" required>
-            <label for="floatingInput"> Spécialité </label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="codepostal" required>
-            <label for="floatingInput">Code postal</label>
-          </div>
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="phone" required>
-            <label for="floatingInput"> Téléphone </label>
           </div>
           <br>
-          <input class="w-100 btn btn-lg btn-primary" name="submit" type="submit" value="S'inscrire">
-          <small class="text-muted"> Vous serez redirigé après inscription </small>
+          <input class="w-100 btn btn-lg btn-primary" name="submit" type="submit" value="Se connecter">
           <hr class="my-4">
+
           <div class="row">
           <div class="col-sm">
-          <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'inscriptionMedecin.php';"> S'inscrire' </button>
+          <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'inscriptionMedecin.php';"> S'inscrire </button>
             </div>
           <div class="col-sm">
            <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'accueil.php';"> Accueil </button>
-        </div>
-        </div>
-           </form>
+          </div>
+          </div>
+        
+        </form>
       </div>
-      <div class="col-lg-6">
-      <img src="image/Eris.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="100%" height="100%" loading="lazy">
+      <div class="col-md-10 mx-auto col-lg-5">
+        <img src="image/Jojo.png" class="d-block mx-lg-auto img-fluid" width="100%" height="100%" loading="lazy">
       </div>
     </div>
-  </div> 
+  </div>
 
-  <div class="b-example-divider"></div>
-
+  <div class="b-example-divider mb-0"></div>
 </main>
 
 
