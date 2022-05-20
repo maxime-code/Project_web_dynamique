@@ -11,7 +11,7 @@
 
   if(isset($_POST['submit']) && !empty($_POST['submit']))
   {
-    $request = 'SELECT email, mdp FROM patient WHERE email=:email AND mdp=:mdp';
+    $request = 'SELECT email, mdp FROM medecin WHERE email=:email AND mdp=:mdp';
     $statement = $db->prepare($request);
     $statement->bindParam(':email', $_POST['email']);
     $statement->bindParam(':mdp',$_POST['password']);
@@ -21,7 +21,7 @@
     if($row == 1)
     {
       $_SESSION['email'] = $result['email'];
-      header("Location: patient.php");
+      header("Location: medecin.php");
     }else{
         $erreur = "Vos identifiants sont incorrect ou n'existent pas.";
     }  
@@ -124,7 +124,7 @@
       <div class="col-lg-7 text-center text-lg-start">
         
       <form class="p-4 p-md-5 border rounded-3 bg-light" action="" method="post">
-        <h1 class="text-center"> Authentification Patient </h1>
+        <h1 class="text-center"> Authentification Medecin </h1>
         <br>
           <?php if (! empty($erreur)) { ?>
             <div class="alert alert-danger">
@@ -145,7 +145,7 @@
 
           <div class="row">
           <div class="col-sm">
-          <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'inscriptionPatient.php';"> S'inscrire </button>
+          <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'inscriptionMedecin.php';"> S'inscrire </button>
             </div>
           <div class="col-sm">
            <button class="w-100 btn btn-lg btn-outline-secondary" onclick="window.location.href = 'accueil.php';"> Accueil </button>
@@ -155,7 +155,7 @@
         </form>
       </div>
       <div class="col-md-10 mx-auto col-lg-5">
-        <img src="image/Caesar.jpg" class="d-block mx-lg-auto img-fluid" width="100%" height="100%" loading="lazy">
+        <img src="image/Jojo.png" class="d-block mx-lg-auto img-fluid" width="100%" height="100%" loading="lazy">
       </div>
     </div>
   </div>
