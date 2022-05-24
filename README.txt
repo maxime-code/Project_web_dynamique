@@ -28,3 +28,6 @@ Adresse email
 Adresse email (pour confirmation)
 Mot de passe
 
+PROJET FINI
+PARTI AJAX A FAIRE
+
